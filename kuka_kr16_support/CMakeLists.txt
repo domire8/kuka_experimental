@@ -1,15 +1,19 @@
-cmake_minimum_required(VERSION 3.0.2)
-
+cmake_minimum_required(VERSION 3.5)
 project(kuka_kr16_support)
 
-find_package(catkin REQUIRED)
-
-catkin_package()
-
-if (CATKIN_ENABLE_TESTING)
-  find_package(roslaunch REQUIRED)
-  roslaunch_add_file_check(test/roslaunch_test.xml)
+# Default to C++14
+if(NOT CMAKE_CXX_STANDARD)
+ set(CMAKE_CXX_STANDARD 14)
 endif()
 
-install(DIRECTORY config launch meshes urdf
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+ add_compile_options(-Wall -Wextra)
+endif()
+
+find_package(ament_cmake REQUIRED)
+
+foreach(dir config launch meshes urdf)
+ install(DIRECTORY ${dir}/ DESTINATION share/${PROJECT_NAME}/${dir})
+endforeach(dir)
+
+ament_package()
