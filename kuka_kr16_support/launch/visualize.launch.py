@@ -17,7 +17,7 @@ def generate_launch_description():
             " ",
             PathJoinSubstitution(
                 [FindPackageShare("kuka_kr16_support"), "urdf/", LaunchConfiguration("model")]),
-            ".urdf.xacro"
+            ".xacro"
         ]
     )
 
